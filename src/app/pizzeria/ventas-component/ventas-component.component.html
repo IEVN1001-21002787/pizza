@@ -1,0 +1,94 @@
+<div style="text-align: center; font-family: 'Segoe UI', sans-serif;">
+  <div style="max-width: 600px; width: 100%; padding: 30px; background: linear-gradient(135deg, #fff6e5 0%, #ffecd2 100%); border-radius: 20px; margin: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+    <h2 style="font-size: 32px; text-align: center; margin-bottom: 30px; color: #e67e22; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">🍕 Formulario de Pedido de Pizza 🍕</h2>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" style="background: rgba(255,255,255,0.9); padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+      <!-- Datos del cliente -->
+      <div style="margin-bottom: 25px;">
+        <label for="fullName" style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">👤 Nombre Completo</label>
+        <input type="text" id="fullName" formControlName="fullName" required 
+               style="width: 100%; padding: 12px; border: 2px solid #e8e8e8; border-radius: 10px; 
+                      transition: all 0.3s; outline: none; font-size: 16px;
+                      &:focus { border-color: #f39c12; box-shadow: 0 0 0 2px rgba(243,156,18,0.2); }">
+      </div>
+
+      <div style="margin-bottom: 25px;">
+        <label for="address" style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">📍 Dirección</label>
+        <input type="text" id="address" formControlName="address" required 
+               style="width: 100%; padding: 12px; border: 2px solid #e8e8e8; border-radius: 10px; 
+                      transition: all 0.3s; outline: none; font-size: 16px;
+                      &:focus { border-color: #f39c12; box-shadow: 0 0 0 2px rgba(243,156,18,0.2); }">
+      </div>
+
+      <div style="margin-bottom: 25px;">
+        <label for="phone" style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">📞 Teléfono</label>
+        <input type="tel" id="phone" formControlName="phone" required 
+               style="width: 100%; padding: 12px; border: 2px solid #e8e8e8; border-radius: 10px; 
+                      transition: all 0.3s; outline: none; font-size: 16px;
+                      &:focus { border-color: #f39c12; box-shadow: 0 0 0 2px rgba(243,156,18,0.2); }">
+      </div>
+
+      <div style="margin-bottom: 25px;">
+        <label for="purchaseDate" style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">📅 Día de la Semana</label>
+        <input type="text" id="purchaseDate" formControlName="purchaseDate" required 
+               style="width: 100%; padding: 12px; border: 2px solid #e8e8e8; border-radius: 10px; 
+                      transition: all 0.3s; outline: none; font-size: 16px;
+                      &:focus { border-color: #f39c12; box-shadow: 0 0 0 2px rgba(243,156,18,0.2); }">
+      </div>
+
+      <!-- Tamaño -->
+      <div style="margin-bottom: 25px; background: rgba(243,156,18,0.1); padding: 20px; border-radius: 10px;">
+        <label style="display: block; margin-bottom: 15px; color: #2c3e50; font-weight: 600;">📏 Tamaño</label>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+          <div *ngFor="let size of sizeOptions" style="margin-bottom: 10px;">
+            <input type="radio" [id]="size" formControlName="size" [value]="size" required 
+                   style="margin-right: 8px; accent-color: #e67e22;">
+            <label [for]="size" style="color: #34495e; cursor: pointer;">{{ size }}</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ingredientes -->
+      <div formGroupName="toppings" style="margin-bottom: 25px; background: rgba(243,156,18,0.1); padding: 20px; border-radius: 10px;">
+        <label style="display: block; margin-bottom: 15px; color: #2c3e50; font-weight: 600;">🧀 Elige los ingredientes</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+          <div *ngFor="let topping of toppingOptions" style="margin-bottom: 10px;">
+            <input type="checkbox" [id]="topping" [formControlName]="topping" 
+                   style="margin-right: 8px; accent-color: #e67e22;">
+            <label [for]="topping" style="color: #34495e; cursor: pointer;">{{ topping }}</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cantidad de Pizzas -->
+      <div style="margin-bottom: 30px;">
+        <label for="quantity" style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">🔢 Cantidad de Pizzas</label>
+        <input type="number" id="quantity" formControlName="quantity" min="1" required 
+               style="width: 100%; padding: 12px; border: 2px solid #e8e8e8; border-radius: 10px; 
+                      transition: all 0.3s; outline: none; font-size: 16px;
+                      &:focus { border-color: #f39c12; box-shadow: 0 0 0 2px rgba(243,156,18,0.2); }">
+      </div>
+
+      <!-- Botón de Enviar -->
+      <div style="text-align: center;">
+        <button type="submit" 
+                style="background: linear-gradient(45deg, #e67e22 0%, #f39c12 100%);
+                       color: white;
+                       border: none;
+                       padding: 15px 40px;
+                       border-radius: 25px;
+                       font-size: 18px;
+                       font-weight: 600;
+                       cursor: pointer;
+                       transition: transform 0.2s, box-shadow 0.2s;
+                       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                       &:hover {
+                         transform: translateY(-2px);
+                         box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+                       }">
+          🛒 Añadir Pedido
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
